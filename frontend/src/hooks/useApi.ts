@@ -6,13 +6,6 @@ export const useApi = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleResponse = async (response: Response) => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  };
-
   const convertCurrency = async (amount: number, from: string, to: string) => {
     setLoading(true);
     setError(null);
@@ -24,7 +17,10 @@ export const useApi = () => {
         },
         body: JSON.stringify({ amount, from, to }),
       });
-      const data = await handleResponse(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
       setLoading(false);
       return data.result;
     } catch (err) {
@@ -39,7 +35,10 @@ export const useApi = () => {
     setError(null);
     try {
       const response = await fetch(`${API_URL}/conversions`);
-      const data = await handleResponse(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
       setLoading(false);
       return data;
     } catch (err) {
@@ -54,7 +53,10 @@ export const useApi = () => {
     setError(null);
     try {
       const response = await fetch(`${API_URL}/exchange-rate`);
-      const data = await handleResponse(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
       setLoading(false);
       return data.rate;
     } catch (err) {
@@ -75,7 +77,10 @@ export const useApi = () => {
         },
         body: JSON.stringify({ rate: newRate }),
       });
-      const data = await handleResponse(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
       setLoading(false);
       return data;
     } catch (err) {
