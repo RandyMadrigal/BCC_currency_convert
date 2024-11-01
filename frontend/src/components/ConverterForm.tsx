@@ -8,21 +8,26 @@ export const ConverterForm: React.FC = () => {
   const [toCurrency, setToCurrency] = useState<string>('USD');
   const [result, setResult] = useState<number | null>(null);
 
-  const { convertCurrency } = useApi();
+  const { convertCurrency, loading, error } = useApi();
 
   const handleConvert = async () => {
+    if (!amount) {
+      alert('Por favor, ingrese un monto');
+      return;
+    }
     try {
       const conversionResult = await convertCurrency(parseFloat(amount), fromCurrency, toCurrency);
       setResult(conversionResult);
     } catch (error) {
-      console.error('Fallo durante la conversión:', error);
+      console.error('Error durante la conversión:', error);
+      alert('Hubo un error al realizar la conversión. Por favor, intente de nuevo.');
     }
   };
-
+  
   return (
     <Box sx={{ maxWidth: 400, margin: 'auto', mt: 4 }}>
       <Typography variant="h4" gutterBottom>
-        Convertidor de Moneda
+        Conversor de Moneda
       </Typography>
       <TextField
         fullWidth
@@ -50,9 +55,20 @@ export const ConverterForm: React.FC = () => {
           <MenuItem value="DOP">DOP</MenuItem>
         </Select>
       </Box>
-      <Button variant="contained" color="primary" fullWidth onClick={handleConvert}>
-        Hacer Cambio
+      <Button 
+        variant="contained" 
+        color="primary" 
+        fullWidth 
+        onClick={handleConvert}
+        disabled={loading}
+      >
+        {loading ? 'Convirtiendo...' : 'Convertir'}
       </Button>
+      {error && (
+        <Typography color="error" sx={{ mt: 2 }}>
+          {error}
+        </Typography>
+      )}
       {result !== null && (
         <Typography variant="h6" sx={{ mt: 2 }}>
           Resultado: {result.toFixed(2)} {toCurrency}

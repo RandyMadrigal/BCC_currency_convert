@@ -1,23 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import theme from './theme/theme';
+import { CssBaseline, Container } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { theme } from './theme/theme';
 import { Home } from './pages/Home';
 import { Admin } from './pages/Admin';
+import { Navigation } from './components/Navigation';
+import { ConversionHistory } from './components/ConversionHistory';
 
-const App: React.FC = () => {
+function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
+        <Navigation />
+        <Container>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/history" element={<ConversionHistory />} /> 
+          </Routes>
+        </Container>
       </Router>
     </ThemeProvider>
   );
-};
+}
 
 export default App;
