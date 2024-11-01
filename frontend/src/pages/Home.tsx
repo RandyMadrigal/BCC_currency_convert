@@ -1,13 +1,10 @@
-import React from 'react';
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { ConverterForm } from '../components/ConverterForm';
-import { ConversionHistory } from '../components/ConversionHistory';
 
-export const Home: React.FC = () => {
+export const Home = () => {
   return (
-    <Container>
+    <Box sx={{ py: 4 }}>
       <ConverterForm />
-      <ConversionHistory />
-    </Container>
+    </Box>
   );
 };

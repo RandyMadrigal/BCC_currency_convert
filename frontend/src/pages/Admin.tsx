@@ -1,11 +1,10 @@
-import React from 'react';
-import { Container } from '@mui/material';
 import { ExchangeRateManager } from '../components/ExchangeRateManager';
+import { Box } from '@mui/material';
 
-export const Admin: React.FC = () => {
+export const Admin = () => {
   return (
-    <Container>
+    <Box sx={{ py: 4 }}>
       <ExchangeRateManager />
-    </Container>
+    </Box>
   );
 };

@@ -19,11 +19,11 @@ export const ConverterForm: React.FC = () => {
       const conversionResult = await convertCurrency(parseFloat(amount), fromCurrency, toCurrency);
       setResult(conversionResult);
     } catch (error) {
-      console.error('Error during conversion:', error);
+      console.error('Error durante la conversión:', error);
       alert('Hubo un error al realizar la conversión. Por favor, intente de nuevo.');
     }
   };
-
+  
   return (
     <Box sx={{ maxWidth: 400, margin: 'auto', mt: 4 }}>
       <Typography variant="h4" gutterBottom>
