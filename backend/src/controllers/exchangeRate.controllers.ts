@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import exchangeRateSchema from "../model/exchangeRate.model";
+import * as exchangeService from "../services/exchangeRate.services";
 
 //TODO: mover logica a sus respectivos servicios y repositorios.
 
@@ -8,32 +8,30 @@ export const createExchangeRate = async (req: Request, res: Response) => {
   const { name, value } = req.body;
 
   try {
-    //exchangeRate name exist?
-    const ExchangeRate = await exchangeRateSchema.findOne({
-      name,
-    });
+    const create = await exchangeService.createExchange({ name, value });
 
-    if (ExchangeRate) {
-      res.status(409).json({ msg: "exchangeRate name is already in use" });
+    if (create) {
+      res.status(201).json({
+        msg: "Exchange rate created successfully",
+        exchangeRate: create,
+      });
       return;
     }
-    //TODO, manejar errores
-    const newExchangeRate = { name, value };
-    const create = await exchangeRateSchema.create(newExchangeRate);
 
-    res.status(201).json({
-      msg: "Exchange rate created successfully",
-      exchangeRate: create,
-    });
+    res.status(400).json({ msg: "exchange not created" });
   } catch (err) {
-    console.log(err);
+    if (err instanceof Error) {
+      res.status(409).json({ msg: err.message });
+      return;
+    }
+    res.status(500).json({ msg: "Internal Server Error" });
   }
 };
 
 // get all exchangeRate
 export const getExchangeRates = async (req: Request, res: Response) => {
   try {
-    const exchangeRates = await exchangeRateSchema.find({});
+    const exchangeRates = await exchangeService.getRates();
 
     if (!exchangeRates) {
       res.status(404).json({ msg: "exchange rates not found" });
@@ -43,6 +41,7 @@ export const getExchangeRates = async (req: Request, res: Response) => {
     res.status(200).json({ msg: exchangeRates });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ msg: "server error" });
   }
 };
 
@@ -50,7 +49,7 @@ export const getExchangeRates = async (req: Request, res: Response) => {
 export const getExchangeRateById = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const exchangeRate = await exchangeRateSchema.findById(id);
+    const exchangeRate = await exchangeService.getRateById(id);
 
     if (!exchangeRate) {
       res.status(404).json({ msg: "exchange rates not found" });
@@ -60,28 +59,26 @@ export const getExchangeRateById = async (req: Request, res: Response) => {
     res.status(200).json({ msg: exchangeRate });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ msg: "server error" });
   }
 };
 
 // update exchange rate
 export const updateExchangeRate = async (req: Request, res: Response) => {
-  const { name, value } = req.body;
   const { id } = req.params;
+  const { name, value } = req.body;
 
   try {
-    const update = await exchangeRateSchema.findByIdAndUpdate(
-      id,
-      { name: name, value: value },
-      { new: true, runValidators: true }
-    );
+    const update = await exchangeService.updateRate({ name, value }, id);
 
     if (!update) {
       res.status(404).json({ msg: "can't update exchange rate" });
       return;
     }
     res.status(200).json({ msg: "updated", update: update });
+    return;
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ msg: "server error" });
   }
 };
 
@@ -89,14 +86,15 @@ export const updateExchangeRate = async (req: Request, res: Response) => {
 export const deleteExchangeRate = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const deleteExchange = await exchangeRateSchema.findByIdAndDelete(id);
+    const deleteExchange = await exchangeService.deleteRate(id);
 
     if (!deleteExchange) {
-      res.status(404).json({ msg: "can't update exchange rate" });
+      res.status(404).json({ msg: "can't delete exchange rate" });
       return;
     }
     res.status(200).json({ msg: "deleted", delete: deleteExchange });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ msg: "server error" });
   }
 };

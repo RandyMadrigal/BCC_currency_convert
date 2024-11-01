@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import conversionSchema from "../model/conversion.model";
-import exchangeSchema from "../model/exchangeRate.model";
+import { getRate } from "../services/exchangeRate.services";
 
 // Controlador para realizar la conversión de monedas
 //from = desde || to = a || amount = monto...
@@ -10,8 +9,8 @@ export const convertCurrency = async (req: Request, res: Response) => {
 
   try {
     // Buscar las tasas de cambio para las monedas proporcionadas
-    const fromRate = await exchangeSchema.findOne({ name: from });
-    const toRate = await exchangeSchema.findOne({ name: to });
+    const fromRate = await getRate(from);
+    const toRate = await getRate(to);
 
     // Verificar si se encontraron las tasas de cambio
     if (!fromRate || !toRate) {
