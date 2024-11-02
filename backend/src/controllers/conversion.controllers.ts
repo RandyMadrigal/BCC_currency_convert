@@ -11,6 +11,7 @@ export const convertCurrency = async (req: Request, res: Response) => {
     // Buscar las tasas de cambio para las monedas proporcionadas
     const fromRate = await getRate(from);
     const toRate = await getRate(to);
+    console.log(fromRate, toRate);
 
     // Verificar si se encontraron las tasas de cambio
     if (!fromRate || !toRate) {

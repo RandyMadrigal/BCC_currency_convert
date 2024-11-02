@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import ICONVERSION from "../interfaces/conversion.interface";
 
 const conversionSchema = new Schema<ICONVERSION>(
@@ -7,6 +7,7 @@ const conversionSchema = new Schema<ICONVERSION>(
     monedaOrigen: { type: String, required: true, unique: true },
     monedaDestino: { type: String, required: true, unique: true },
     resultado: { type: String, required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   },
   {
     timestamps: {
@@ -16,4 +17,4 @@ const conversionSchema = new Schema<ICONVERSION>(
   }
 );
 
-export default model("conversion", conversionSchema);
+export default model("conversions", conversionSchema);

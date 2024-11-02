@@ -14,4 +14,4 @@ const exchangeRateSchema = new Schema<IEXCHANGERATE>(
   }
 );
 
-export default model("exchangeRate", exchangeRateSchema);
+export default model("exchangeRates", exchangeRateSchema);

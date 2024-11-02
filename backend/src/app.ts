@@ -5,6 +5,7 @@ import cors from "cors";
 import morgan from "morgan";
 
 //routes
+import authRoutes from "./routes/auth.routes";
 import conversionRoutes from "./routes/conversion.routes";
 import exchangeRateRoutes from "./routes/exchangeRate.routes";
 
@@ -24,6 +25,7 @@ app.use(cookieParser());
 
 app.use(morgan("dev"));
 
+app.use("/api/auth", authRoutes);
 app.use("/api", conversionRoutes);
 app.use("/api", exchangeRateRoutes);
 

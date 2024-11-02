@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as exchangeService from "../services/exchangeRate.services";
+import IEXCHANGERATE from "../interfaces/exchangeRate.interface";
 
 //TODO: mover logica a sus respectivos servicios y repositorios.
 
@@ -8,7 +9,10 @@ export const createExchangeRate = async (req: Request, res: Response) => {
   const { name, value } = req.body;
 
   try {
-    const create = await exchangeService.createExchange({ name, value });
+    const create = await exchangeService.createExchange({
+      name,
+      value,
+    } as IEXCHANGERATE);
 
     if (create) {
       res.status(201).json({
@@ -69,7 +73,10 @@ export const updateExchangeRate = async (req: Request, res: Response) => {
   const { name, value } = req.body;
 
   try {
-    const update = await exchangeService.updateRate({ name, value }, id);
+    const update = await exchangeService.updateRate(
+      { name, value } as IEXCHANGERATE,
+      id
+    );
 
     if (!update) {
       res.status(404).json({ msg: "can't update exchange rate" });

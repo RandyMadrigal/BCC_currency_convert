@@ -1,4 +1,4 @@
-import * as exchangeRepository from "../Repositories/exchangeRate.repository";
+import * as exchangeRepository from "../repositories/exchangeRate.repository";
 import IEXCHANGERATE from "../interfaces/exchangeRate.interface";
 
 export const getRate = async (rate: string) => {
@@ -16,7 +16,7 @@ export const createExchange = async (exchangeData: IEXCHANGERATE) => {
     const rateName = await exchangeRepository.findRate(name);
     if (rateName) throw new Error("rate name is already in use");
 
-    const newRate: IEXCHANGERATE = { name, value };
+    const newRate: IEXCHANGERATE = { name, value } as IEXCHANGERATE;
 
     const rate = await exchangeRepository.createRate(newRate);
 

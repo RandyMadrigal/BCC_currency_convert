@@ -9,10 +9,10 @@ import {
 
 const router = Router();
 
-router.get("/exchange-Rate", getExchangeRates); //get all exchange rates
-router.get("/exchange-Rate/:id", getExchangeRateById); //get exchange rate
-router.post("/exchange-Rate", createExchangeRate); // create exchange rate
-router.put("/exchange-Rate/:id", updateExchangeRate); //update exchange rate
-router.delete("/exchange-Rate/:id", deleteExchangeRate); // delete exchange rate
+router.get("/exchange-rate", getExchangeRates); //get all exchange rates
+router.get("/exchange-rate/:id", getExchangeRateById); //get exchange rate
+router.post("/exchange-rate", createExchangeRate); // create exchange rate
+router.put("/exchange-rate/:id", updateExchangeRate); //update exchange rate
+router.delete("/exchange-rate/:id", deleteExchangeRate); // delete exchange rate
 
 export default router;
