@@ -7,8 +7,8 @@ export const findRate = async (rate: string) => {
   return fromRate || null;
 };
 
-export const createRate = async (nexExchangeRate: IEXCHANGERATE) => {
-  const exchangeRate = await exchangeSchema.create(nexExchangeRate);
+export const createRate = async (newExchangeRate: IEXCHANGERATE) => {
+  const exchangeRate = await exchangeSchema.create(newExchangeRate);
   return exchangeRate.save();
 };
 

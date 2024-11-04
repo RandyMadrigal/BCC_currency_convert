@@ -23,7 +23,7 @@ export const initExchange = async () => {
 
     if (existingRates.length === 0) {
       const create = await exchangeRateModel.insertMany(init);
-      console.log(">>> Initial exchange rates created:", create);
+      console.log(">>> Initial exchange rates created");
     } else {
       console.log(">>> Exchange rates already initialized.");
     }

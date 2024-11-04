@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { convertCurrency } from "../controllers/conversion.controllers";
+import {
+  convertCurrency,
+  getConversions,
+} from "../controllers/conversion.controllers";
 
 const router = Router();
 
-router.post("/convert-currency", convertCurrency); //realizar conversion
+router.get("/convert-currency-history/:userId", getConversions); //obtener historial de conversiones por usuario
+router.post("/convert-currency/:userId", convertCurrency); //realizar conversion
 
 export default router;

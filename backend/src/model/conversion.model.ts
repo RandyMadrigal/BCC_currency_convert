@@ -3,11 +3,11 @@ import ICONVERSION from "../interfaces/conversion.interface";
 
 const conversionSchema = new Schema<ICONVERSION>(
   {
-    monto: { type: String, required: true },
-    monedaOrigen: { type: String, required: true, unique: true },
-    monedaDestino: { type: String, required: true, unique: true },
-    resultado: { type: String, required: true },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+    amount: { type: Number, required: true },
+    from: { type: String, required: true },
+    to: { type: String, required: true },
+    result: { type: Number, required: true },
+    userId: { type: String, ref: "users", required: true },
   },
   {
     timestamps: {
