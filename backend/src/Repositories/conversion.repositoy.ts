@@ -9,6 +9,13 @@ export const create = async (newConversion: ICONVERSION) => {
 export const findConversionByUserId = async (userId: string) => {
   const history = await conversionSchema
     .find({ userId: userId })
-    .populate("userId");
+    .populate("userId", {
+      password: 0,
+      isActive: 0,
+      _id: 0,
+      name: 0,
+      email: 0,
+      createdAt: 0,
+    });
   return history || null;
 };

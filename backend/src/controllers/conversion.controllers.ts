@@ -7,8 +7,7 @@ import ICONVERSION from "../interfaces/conversion.interface";
 //from = desde || to = a || amount = monto...
 
 export const convertCurrency = async (req: Request, res: Response) => {
-  const { from, to, amount } = req.body;
-  const { userId } = req.params;
+  const { from, to, amount, userId } = req.body;
 
   try {
     // Buscar las tasas de cambio para las monedas proporcionadas
@@ -52,6 +51,7 @@ export const convertCurrency = async (req: Request, res: Response) => {
 
 export const getConversions = async (req: Request, res: Response) => {
   const { userId } = req.params;
+
   try {
     const history = await conversionService.getUserConversions(userId);
 

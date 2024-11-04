@@ -53,7 +53,7 @@ export const login = async (req: Request, res: Response) => {
         secure: process.env.NODE_ENV === "production", // Solo true en HTTPS
       });
       res.status(201).json({
-        message: `Login successful, Hi ${user.name}`,
+        message: `Login successful, Hi ${user.userName}`,
         token: token,
         user: user,
       });
