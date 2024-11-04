@@ -5,15 +5,15 @@ export const initExchange = async () => {
   try {
     const init = [
       {
-        name: exchange_Default.USD,
+        name: exchange_Default.USD || "name" /*exchangeRate name*/,
         value: exchange_Default.USD_VALUE || 50.5 /*exchangeRate value*/,
       },
       {
-        name: exchange_Default.EUR,
+        name: exchange_Default.EUR || "name" /*exchangeRate name*/,
         value: exchange_Default.EUR_VALUE || 50.5 /*exchangeRate value*/,
       },
       {
-        name: exchange_Default.DOP,
+        name: exchange_Default.DOP || "name" /*exchangeRate name*/,
         value: exchange_Default.DOP_VALUE || 50.5 /*exchangeRate value*/,
       },
     ];
