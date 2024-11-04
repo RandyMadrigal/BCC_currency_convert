@@ -1,20 +1,20 @@
 import exchangeRateModel from "../model/exchangeRate.model";
-import "dotenv/config";
+import exchange_Default from "../enum/initExchangeRate.enum";
 
 export const initExchange = async () => {
   try {
     const init = [
       {
-        name: "USD",
-        value: process.env.USD_VALUE || 50.5 /*exchangeRate value*/,
+        name: exchange_Default.USD,
+        value: exchange_Default.USD_VALUE || 50.5 /*exchangeRate value*/,
       },
       {
-        name: "EUR",
-        value: process.env.EUR_VALUE || 50.5 /*exchangeRate value*/,
+        name: exchange_Default.EUR,
+        value: exchange_Default.EUR_VALUE || 50.5 /*exchangeRate value*/,
       },
       {
-        name: "DOP",
-        value: process.env.DOP_VALUE || 50.5 /*exchangeRate value*/,
+        name: exchange_Default.DOP,
+        value: exchange_Default.DOP_VALUE || 50.5 /*exchangeRate value*/,
       },
     ];
 

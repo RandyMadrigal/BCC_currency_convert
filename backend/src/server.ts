@@ -1,6 +1,6 @@
 import app from "./app";
 import connection from "./config/db.connection";
-import { initExchange } from "./utils/exchangeRateDefault.utils";
+import { initExchange } from "./config/exchangeRate.default";
 
 const port = process.env.PORT || 3000;
 
