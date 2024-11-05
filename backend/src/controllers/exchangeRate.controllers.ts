@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as exchangeService from "../services/exchangeRate.services";
 import IEXCHANGERATE from "../interfaces/exchangeRate.interface";
 
-//TODO: mover logica a sus respectivos servicios y repositorios.
+//Only the admin user can use this controller.
 
 // create new exchangeRate
 export const createExchangeRate = async (req: Request, res: Response) => {

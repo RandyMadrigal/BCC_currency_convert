@@ -1,7 +1,7 @@
-enum httpRequest {
+enum requestFrom {
   body = "body",
   query = "query",
   params = "params",
 }
 
-export default httpRequest;
+export default requestFrom;

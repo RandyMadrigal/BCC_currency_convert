@@ -3,7 +3,6 @@ import { getRate } from "../services/exchangeRate.services";
 import * as conversionService from "../services/conversion.services";
 import ICONVERSION from "../interfaces/conversion.interface";
 
-// Controlador para realizar la conversión de monedas
 //from = desde || to = a || amount = monto...
 
 export const convertCurrency = async (req: Request, res: Response) => {

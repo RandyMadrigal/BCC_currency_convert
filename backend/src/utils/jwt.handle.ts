@@ -2,10 +2,11 @@ import { sign, verify } from "jsonwebtoken";
 import IUSER from "../interfaces/user.interface";
 
 export const createToken = (userData: IUSER) => {
-  const { name, userName } = userData;
+  const { name, userName, role } = userData;
   const payload = {
     name,
     userName,
+    role,
   };
 
   const jwt_secret =

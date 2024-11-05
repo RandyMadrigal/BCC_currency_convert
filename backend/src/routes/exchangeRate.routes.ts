@@ -6,28 +6,38 @@ import {
   deleteExchangeRate,
   createExchangeRate,
 } from "../controllers/exchangeRate.controllers";
-import httpRequest from "../enum/http.request.enum";
+import requestFrom from "../enum/requestFrom.enum";
 import { exchangeBodySchema } from "../utils/joiSchema/exchangeRate.schema";
 import { validateJoi } from "../middlewares/validate.Joi.middleware";
+import { validateJwt } from "../middlewares/validate.jwt.middleware";
+import Roles from "../enum/roles.enum";
 
 const router = Router();
 
-router.get("/exchange-rate", getExchangeRates); //get all exchange rates
+//Only the admin user can use this controller.
 
-router.get("/exchange-rate/:id", getExchangeRateById); //get exchange rate
+router.get("/exchange-rate", validateJwt(Roles.admin), getExchangeRates); //get all exchange rates
+
+router.get("/exchange-rate/:id", validateJwt(Roles.admin), getExchangeRateById); //get exchange rate
 
 router.post(
   "/exchange-rate",
-  validateJoi(exchangeBodySchema, httpRequest.body),
+  validateJwt(Roles.admin),
+  validateJoi(exchangeBodySchema, requestFrom.body),
   createExchangeRate
 ); // create exchange rate
 
 router.put(
   "/exchange-rate/:id",
-  validateJoi(exchangeBodySchema, httpRequest.body),
+  validateJwt(Roles.admin),
+  validateJoi(exchangeBodySchema, requestFrom.body),
   updateExchangeRate
 ); //update exchange rate
 
-router.delete("/exchange-rate/:id", deleteExchangeRate); // delete exchange rate
+router.delete(
+  "/exchange-rate/:id",
+  validateJwt(Roles.admin),
+  deleteExchangeRate
+); // delete exchange rate
 
 export default router;
