@@ -1,20 +1,20 @@
 import exchangeRateModel from "../model/exchangeRate.model";
-import "dotenv/config";
+import exchange_Default from "../enum/initExchangeRate.enum";
 
 export const initExchange = async () => {
   try {
     const init = [
       {
-        name: "USD",
-        value: process.env.USD_VALUE || 50.5 /*exchangeRate value*/,
+        name: exchange_Default.USD || "name" /*exchangeRate name*/,
+        value: exchange_Default.USD_VALUE || 50.5 /*exchangeRate value*/,
       },
       {
-        name: "EUR",
-        value: process.env.EUR_VALUE || 50.5 /*exchangeRate value*/,
+        name: exchange_Default.EUR || "name" /*exchangeRate name*/,
+        value: exchange_Default.EUR_VALUE || 50.5 /*exchangeRate value*/,
       },
       {
-        name: "DOP",
-        value: process.env.DOP_VALUE || 50.5 /*exchangeRate value*/,
+        name: exchange_Default.DOP || "name" /*exchangeRate name*/,
+        value: exchange_Default.DOP_VALUE || 50.5 /*exchangeRate value*/,
       },
     ];
 
@@ -23,7 +23,7 @@ export const initExchange = async () => {
 
     if (existingRates.length === 0) {
       const create = await exchangeRateModel.insertMany(init);
-      console.log(">>> Initial exchange rates created:", create);
+      console.log(">>> Initial exchange rates created");
     } else {
       console.log(">>> Exchange rates already initialized.");
     }

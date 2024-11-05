@@ -1,12 +1,13 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import ICONVERSION from "../interfaces/conversion.interface";
 
 const conversionSchema = new Schema<ICONVERSION>(
   {
-    monto: { type: String, required: true },
-    monedaOrigen: { type: String, required: true, unique: true },
-    monedaDestino: { type: String, required: true, unique: true },
-    resultado: { type: String, required: true },
+    amount: { type: Number, required: true },
+    from: { type: String, required: true },
+    to: { type: String, required: true },
+    result: { type: Number, required: true },
+    userId: { type: String, ref: "users", required: true },
   },
   {
     timestamps: {
@@ -16,4 +17,4 @@ const conversionSchema = new Schema<ICONVERSION>(
   }
 );
 
-export default model("conversion", conversionSchema);
+export default model("conversions", conversionSchema);
