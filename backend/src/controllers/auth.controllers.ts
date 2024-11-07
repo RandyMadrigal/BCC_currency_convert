@@ -4,9 +4,11 @@ import { createToken } from "../utils/jwt.handle";
 import { sendMail } from "../utils/sendMail.handle";
 import Roles from "../enum/roles.enum";
 import IUSER from "../interfaces/user.interface";
+import handleHttpError from "../utils/errors.handle";
+import { AppError } from "../types/errors";
 
 export const createUser = async (req: Request, res: Response) => {
-  const { name, userName, email, password, isActive, role } = req.body;
+  const { name, userName, email, password, isActive } = req.body;
 
   try {
     const user = await authService.createUser({
@@ -19,9 +21,7 @@ export const createUser = async (req: Request, res: Response) => {
     } as IUSER);
 
     if (user) {
-      res.status(201).json({
-        msg: "user created successfully",
-      });
+      res.status(201).json({ msg: "user created successfully" });
       await sendMail(user.email, user.name);
       return;
     }
@@ -29,13 +29,7 @@ export const createUser = async (req: Request, res: Response) => {
     res.status(400).json({ msg: "User not created" });
     return;
   } catch (err) {
-    if (err instanceof Error) {
-      res.status(409).json({ msg: err.message });
-      return;
-    }
-
-    res.status(500).json({ msg: "Internal Server Error" });
-    return;
+    handleHttpError(res, err as AppError);
   }
 };
 
@@ -59,12 +53,7 @@ export const login = async (req: Request, res: Response) => {
       });
     }
   } catch (err) {
-    if (err instanceof Error) {
-      res.status(409).json({ msg: err.message });
-      return;
-    }
-
-    res.status(500).json({ msg: "Internal Server Error" });
+    handleHttpError(res, err as AppError);
   }
 };
 
