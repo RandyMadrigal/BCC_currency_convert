@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import * as exchangeService from "../services/exchangeRate.services";
 import IEXCHANGERATE from "../interfaces/exchangeRate.interface";
+import handleHttpError from "../utils/errors.handle";
+import { AppError } from "../types/errors";
 
 //Only the admin user can use this controller.
 
@@ -24,16 +26,12 @@ export const createExchangeRate = async (req: Request, res: Response) => {
 
     res.status(400).json({ msg: "exchange not created" });
   } catch (err) {
-    if (err instanceof Error) {
-      res.status(409).json({ msg: err.message });
-      return;
-    }
-    res.status(500).json({ msg: "Internal Server Error" });
+    handleHttpError(res, err as AppError);
   }
 };
 
 // get all exchangeRate
-export const getExchangeRates = async (req: Request, res: Response) => {
+export const getExchangeRates = async (_: Request, res: Response) => {
   try {
     const exchangeRates = await exchangeService.getRates();
 
@@ -44,8 +42,7 @@ export const getExchangeRates = async (req: Request, res: Response) => {
 
     res.status(200).json({ msg: exchangeRates });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: "server error" });
+    handleHttpError(res, err as AppError);
   }
 };
 
@@ -62,8 +59,7 @@ export const getExchangeRateById = async (req: Request, res: Response) => {
 
     res.status(200).json({ msg: exchangeRate });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: "server error" });
+    handleHttpError(res, err as AppError);
   }
 };
 
@@ -73,10 +69,7 @@ export const updateExchangeRate = async (req: Request, res: Response) => {
   const { name, value } = req.body;
 
   try {
-    const update = await exchangeService.updateRate(
-      { name, value } as IEXCHANGERATE,
-      id
-    );
+    const update = await exchangeService.updateRate({ name, value } as IEXCHANGERATE, id);
 
     if (!update) {
       res.status(404).json({ msg: "can't update exchange rate" });
@@ -85,7 +78,7 @@ export const updateExchangeRate = async (req: Request, res: Response) => {
     res.status(200).json({ msg: "updated", update: update });
     return;
   } catch (err) {
-    res.status(500).json({ msg: "server error" });
+    handleHttpError(res, err as AppError);
   }
 };
 
@@ -101,7 +94,6 @@ export const deleteExchangeRate = async (req: Request, res: Response) => {
     }
     res.status(200).json({ msg: "deleted", delete: deleteExchange });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: "server error" });
+    handleHttpError(res, err as AppError);
   }
 };
