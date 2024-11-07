@@ -1,5 +1,6 @@
-import * as conversionRepository from "../repositories/conversion.repositoy";
+import * as conversionRepository from "../Repositories/conversion.repositoy";
 import ICONVERSION from "../interfaces/conversion.interface";
+import { AppError } from "../types/errors";
 
 export const createConversion = async (conversionData: ICONVERSION) => {
   const { amount, from, to, result, userId } = conversionData;
@@ -17,7 +18,7 @@ export const createConversion = async (conversionData: ICONVERSION) => {
 
     return conversion;
   } catch (err) {
-    throw err;
+    throw new AppError("Error creating conversion", 500);
   }
 };
 
@@ -25,6 +26,6 @@ export const getUserConversions = async (userId: string) => {
   try {
     return await conversionRepository.findConversionByUserId(userId);
   } catch (err) {
-    throw err;
+    throw new AppError("Error obtaining conversion history", 500);
   }
 };
