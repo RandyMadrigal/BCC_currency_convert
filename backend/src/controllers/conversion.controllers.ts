@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { getRate } from "../services/exchangeRate.services";
 import * as conversionService from "../services/conversion.services";
 import ICONVERSION from "../interfaces/conversion.interface";
+import handleHttpError from "../utils/errors.handle";
+import { AppError } from "../types/errors";
 
 //from = desde || to = a || amount = monto...
 
@@ -43,8 +45,7 @@ export const convertCurrency = async (req: Request, res: Response) => {
       created_at: new Date().toLocaleDateString(),
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: "An error occurred during conversion" });
+    handleHttpError(res, err as AppError);
   }
 };
 
@@ -60,7 +61,6 @@ export const getConversions = async (req: Request, res: Response) => {
       result: history,
     });
   } catch (error) {
-    console.error("Error obtaining conversion history:", error);
-    res.status(500).json({ msg: "An errror occurred obtaining history" });
+    handleHttpError(res, error as AppError);
   }
 };
