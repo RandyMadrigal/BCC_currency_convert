@@ -1,4 +1,4 @@
-import * as exchangeRepository from "../Repositories/exchangeRate.repository";
+import * as exchangeRepository from "../repositories/exchangeRate.repository";
 import IEXCHANGERATE from "../interfaces/exchangeRate.interface";
 import { AppError } from "../types/errors";
 
