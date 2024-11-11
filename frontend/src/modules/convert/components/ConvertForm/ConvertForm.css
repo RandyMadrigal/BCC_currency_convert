@@ -1,0 +1,82 @@
+.convert-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    color: #1A1A1A;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  .input-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .input-container {
+    width: 48%;
+  }
+  
+  .input-container label {
+    font-size: 16px;
+    color: #1A1A1A;
+    margin-bottom: 8px;
+  }
+  
+  .input-container input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #C6C6C6;
+    border-radius: 4px;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  
+  .input-container input:focus {
+    border-color: #E5133A;
+  }
+  
+  .result-container {
+    width: 48%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .result-container p {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A1A1A;
+  }
+  
+  .button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* ConvertForm.css */
+
+.login-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .login-message p {
+    margin: 0;
+  }
+  

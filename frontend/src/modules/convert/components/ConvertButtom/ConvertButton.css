@@ -1,0 +1,22 @@
+.convert-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #E5133A;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .convert-button:hover {
+    background-color: #B9122F;
+  }
+  
+  .convert-button:disabled {
+    background-color: #E0E0E0;
+    cursor: not-allowed;
+  }
+  
