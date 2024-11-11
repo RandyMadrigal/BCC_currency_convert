@@ -1,22 +1,16 @@
-import './CurrencyInput.css';
-
 interface CurrencyInputProps {
-  currencies: { name: string; value: number }[]; 
-  selectedCurrency: string;
-  onCurrencyChange: (currency: string) => void;
+  amount: number;
+  setAmount: (amount: number) => void;
 }
 
-const CurrencyInput: React.FC<CurrencyInputProps> = ({ currencies, selectedCurrency, onCurrencyChange }) => {
+const CurrencyInput: React.FC<CurrencyInputProps> = ({ amount, setAmount }) => {
   return (
-    <div className="currency-input">
-      <select value={selectedCurrency} onChange={(e) => onCurrencyChange(e.target.value)}>
-        {currencies.map((currency) => (
-          <option key={currency.name} value={currency.name}>
-            {currency.name}
-          </option>
-        ))}
-      </select>
-    </div>
+    <input
+      type="number"
+      value={amount}
+      onChange={(e) => setAmount(parseFloat(e.target.value))}
+      placeholder="Enter amount"
+    />
   );
 };
 
