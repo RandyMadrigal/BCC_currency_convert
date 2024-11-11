@@ -1,27 +1,30 @@
-import { useEffect, useState } from 'react';
-import CurrencyInput from '../CurrencyInput/CurrencyInput';
-import ConvertButton from '../ConvertButtom/ConvertButtom';
-import { convertCurrency } from '../../services/convertService';
-import { ConvertRequest, ConvertResponse } from '../../types/convertTypes';
-import axios from '../../../../lib/axios';
-import { useAuthContext } from '../../../auth/context/AuthContext';
-import './ConvertForm.css';
+import { useEffect, useState } from "react";
+import CurrencyInput from "../CurrencyInput/CurrencyInput";
+import CurrencySelect from "../CurrencySelect/CurrencySelect";
+import ConvertButton from "../ConvertButtom/ConvertButtom";
+import { convertCurrency } from "../../services/convertService";
+import { ConvertRequest, ConvertResponse } from "../../types/convertTypes";
+import axios from "../../../../lib/axios";
+import { useAuthContext } from "../../../auth/context/AuthContext";
+import "./ConvertForm.css";
 
 const ConvertForm: React.FC = () => {
   const [amount, setAmount] = useState<number>(0);
-  const [fromCurrency, setFromCurrency] = useState<string>('USD');
-  const [toCurrency, setToCurrency] = useState<string>('DOP');
-  const [convertedAmount, setConvertedAmount] = useState<string>('');
-  const [currencies, setCurrencies] = useState<{ name: string; value: number }[]>([]);
-  const { user } = useAuthContext();  // Obtener el usuario del contexto de autenticación
+  const [fromCurrency, setFromCurrency] = useState<string>("USD");
+  const [toCurrency, setToCurrency] = useState<string>("DOP");
+  const [convertedAmount, setConvertedAmount] = useState<string>("");
+  const [currencies, setCurrencies] = useState<
+    { name: string; value: number }[]
+  >([]);
+  const { user } = useAuthContext(); // Obtener el usuario del contexto de autenticación
 
   useEffect(() => {
     const fetchCurrencies = async () => {
       try {
-        const response = await axios.get('/exchange-rate');
+        const response = await axios.get("/exchange-rate");
         setCurrencies(response.data.msg);
       } catch (error) {
-        console.error('Error al obtener las monedas', error);
+        console.error("Error al obtener las monedas", error);
       }
     };
 
@@ -30,7 +33,7 @@ const ConvertForm: React.FC = () => {
 
   const handleConvertCurrency = async () => {
     if (!user) {
-      return;  // Si no está logueado, no procede con la conversión
+      return; // Si no está logueado, no procede con la conversión
     }
 
     const requestData: ConvertRequest = {
@@ -44,7 +47,7 @@ const ConvertForm: React.FC = () => {
       const response: ConvertResponse = await convertCurrency(requestData);
       setConvertedAmount(response.result);
     } catch (error) {
-      console.error('Error al convertir la moneda', error);
+      console.error("Error al convertir la moneda", error);
     }
   };
 
@@ -62,15 +65,10 @@ const ConvertForm: React.FC = () => {
       <div className="input-row">
         <div className="input-container">
           <label>Amount</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(parseFloat(e.target.value))}
-            placeholder="Enter amount"
-          />
+          <CurrencyInput amount={amount} setAmount={setAmount} />
         </div>
 
-        <CurrencyInput
+        <CurrencySelect
           currencies={currencies}
           selectedCurrency={fromCurrency}
           onCurrencyChange={setFromCurrency}
@@ -81,14 +79,17 @@ const ConvertForm: React.FC = () => {
         <div className="result-container">
           <p>{convertedAmount}</p>
         </div>
-        <CurrencyInput
+        <CurrencySelect
           currencies={currencies}
           selectedCurrency={toCurrency}
           onCurrencyChange={setToCurrency}
         />
       </div>
 
-      <ConvertButton onClick={handleConvertCurrency} disabled={amount <= 0 || !user} />
+      <ConvertButton
+        onClick={handleConvertCurrency}
+        disabled={amount <= 0 || !user}
+      />
     </div>
   );
 };
