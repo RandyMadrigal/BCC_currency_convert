@@ -26,7 +26,11 @@ app.use(cookieParser());
 
 app.use(morgan("dev"));
 
-app.use("/api/auth", authRoutes);
+//@TODO:
+/*
+* Favor validar esta parte con este cambio de ruta
+*/
+app.use("/api", authRoutes);
 app.use("/api", conversionRoutes);
 app.use("/api", exchangeRateRoutes);
 
