@@ -67,7 +67,7 @@ const router = Router();
 
 /**
  * @swagger
- * /register:
+ * /auth/register:
  *   post:
  *     summary: Registra un nuevo usuario
  *     tags:
@@ -108,7 +108,7 @@ router.post(
 
 /**
  * @swagger
- * /login:
+ * /auth/login:
  *   post:
  *     summary: Inicia sesión de un usuario
  *     tags:
@@ -157,7 +157,7 @@ router.post("/login", validateJoi(loginSchema, requestFrom.body), login);
 
 /**
  * @swagger
- * /logout:
+ * /auth/logout:
  *   post:
  *     summary: Cierra la sesión de un usuario
  *     tags:
