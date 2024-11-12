@@ -11,6 +11,43 @@ import Roles from "../enum/roles.enum";
 
 const router = Router();
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Conversion
+ *     description: Endpoints para manejar las Conversiones
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ExchangeRate:
+ *       type: object
+ *       properties:
+ *         from:
+ *           type: string
+ *           description: Moneda Origen
+ *           example: "USD/EUR"
+ *         to:
+ *           type: string
+ *           description: Moneda Destino
+ *           example: "USD/EUR"
+ *         amount:
+ *           type: decimal
+ *           description: Monto a Convertir
+ *           example: "125.50"
+ *         userId:
+ *           type: number
+ *           description: Identificador del usuario
+ *           example: "1"
+ *       required:
+ *         - from
+ *         - to
+ *         - amount
+ *         - userId
+ */
+
 /** 
 * @swagger
 * /convert-currency-history/{userId}:
