@@ -12,7 +12,7 @@ const router = Router();
  * @swagger
  * tags:
  *   - name: Autenticación
- *     description: Endpoints para manejar los ususarios de la aplicacion y sus permisos
+ *     description: Endpoints para manejar los usuarios de la aplicación y sus permisos
  */
 
 /**
@@ -24,19 +24,19 @@ const router = Router();
  *       properties:
  *         name:
  *           type: string
- *           description: Nombre Completo del Usuario
+ *           description: Nombre completo del usuario
  *           example: "Miguel Jose Mata Ramos"
  *         username:
  *           type: string
- *           description: Nombre de usuario de acceso para la aplicacion
+ *           description: Nombre de usuario para acceder a la aplicación
  *           example: "mmata"
  *         email:
  *           type: string
- *           description: Correo Electronico del usuario
+ *           description: Correo electrónico del usuario
  *           example: "mmata@talenti.com.do"
  *         password:
  *           type: string
- *           description: Clave/Contraseña del usuario
+ *           description: Contraseña del usuario
  *           example: "P@$$w0rD"
  *       required:
  *         - name
@@ -54,11 +54,11 @@ const router = Router();
  *       properties:
  *         username:
  *           type: string
- *           description: Nombre de usuario de acceso para la aplicacion
+ *           description: Nombre de usuario para acceder a la aplicación
  *           example: "mmata"
  *         password:
  *           type: string
- *           description: Clave/Contraseña del usuario
+ *           description: Contraseña del usuario
  *           example: "P@$$w0rD"
  *       required:
  *         - username
@@ -77,16 +77,7 @@ const router = Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
+ *             $ref: '#/components/schemas/Register'
  *     responses:
  *       201:
  *         description: Usuario creado exitosamente
@@ -97,8 +88,8 @@ const router = Router();
  *               properties:
  *                 msg:
  *                   type: string
- *                items:
- *                  $ref: '#/components/schemas/Register' 
+ *                 user:
+ *                   $ref: '#/components/schemas/Register'
  *       400:
  *         description: Error al crear el usuario
  *         content:
@@ -127,12 +118,7 @@ router.post(
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               password:
- *                 type: string
+ *             $ref: '#/components/schemas/Login'
  *     responses:
  *       200:
  *         description: Inicio de sesión exitoso
@@ -143,17 +129,19 @@ router.post(
  *               properties:
  *                 message:
  *                   type: string
+ *                   example: "Inicio de sesión exitoso"
  *                 token:
  *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *                 user:
  *                   type: object
  *                   properties:
  *                     username:
  *                       type: string
+ *                       example: "mmata"
  *                     email:
  *                       type: string
- *               items:
- *                $ref: '#/components/schemas/Login'
+ *                       example: "mmata@talenti.com.do"
  *       401:
  *         description: Credenciales inválidas
  *         content:
@@ -163,6 +151,7 @@ router.post(
  *               properties:
  *                 msg:
  *                   type: string
+ *                   example: "Credenciales inválidas"
  */
 router.post("/login", validateJoi(loginSchema, requestFrom.body), login);
 
@@ -174,7 +163,7 @@ router.post("/login", validateJoi(loginSchema, requestFrom.body), login);
  *     tags:
  *       - Autenticación
  *     security:
- *       - bearerAuth: [] 
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Cierre de sesión exitoso
@@ -185,6 +174,7 @@ router.post("/login", validateJoi(loginSchema, requestFrom.body), login);
  *               properties:
  *                 message:
  *                   type: string
+ *                   example: "Sesión cerrada correctamente"
  *       401:
  *         description: No autorizado
  *         content:
@@ -194,6 +184,7 @@ router.post("/login", validateJoi(loginSchema, requestFrom.body), login);
  *               properties:
  *                 msg:
  *                   type: string
+ *                   example: "No autorizado"
  */
 router.post("/logout", validateJwt(Roles.user), logout);
 
