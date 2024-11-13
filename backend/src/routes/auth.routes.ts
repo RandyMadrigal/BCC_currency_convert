@@ -26,7 +26,7 @@ const router = Router();
  *           type: string
  *           description: Nombre completo del usuario
  *           example: "Miguel Jose Mata Ramos"
- *         username:
+ *         userName:
  *           type: string
  *           description: Nombre de usuario para acceder a la aplicación
  *           example: "mmata"
@@ -40,7 +40,7 @@ const router = Router();
  *           example: "P@$$w0rD"
  *       required:
  *         - name
- *         - username
+ *         - userName
  *         - email
  *         - password
  */
@@ -52,7 +52,7 @@ const router = Router();
  *     Login:
  *       type: object
  *       properties:
- *         username:
+ *         userName:
  *           type: string
  *           description: Nombre de usuario para acceder a la aplicación
  *           example: "mmata"
@@ -61,7 +61,7 @@ const router = Router();
  *           description: Contraseña del usuario
  *           example: "P@$$w0rD"
  *       required:
- *         - username
+ *         - userName
  *         - password
  */
 
