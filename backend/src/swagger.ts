@@ -10,6 +10,16 @@ const options = {
       version: "1.0.0",
       description: "Documentación de la API",
     },
+    components: {
+       securitySchemes: {
+           Authorization: {
+               type: "http",
+               scheme: "bearer",
+               bearerFormat: "JWT",
+               value: "Bearer <JWT token here>"
+           }
+       }
+   },
     servers: [
       {
         url: "http://localhost:3000/api", description: "Api de Conversion de Monedas"
@@ -19,10 +29,15 @@ const options = {
   apis: ['**/*.ts'],
 };
 
+const swaggerUiOptions = {
+  explorer: true
+};
+
+
 const swaggerSpec = swaggerJSDoc(options);
 
 const swaggerDocs = (app : any) => {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
   console.log("📄 Documentación disponible en: http://localhost:3000/api-docs");
 };
 
